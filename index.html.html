@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Unlock</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body{
+  background:#0b0f1a;
+  font-family:Arial, sans-serif;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  height:100vh;
+  margin:0;
+  color:white;
+}
+
+.card{
+  background:#12182b;
+  padding:25px;
+  border-radius:18px;
+  width:320px;
+  box-shadow:0 0 40px rgba(0,0,0,0.5);
+}
+
+h2{
+  margin:0;
+  font-size:18px;
+}
+
+.sub{
+  font-size:13px;
+  color:#aaa;
+  margin-bottom:15px;
+}
+
+.btn{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+  padding:12px;
+  margin:8px 0;
+  border-radius:10px;
+  cursor:pointer;
+  font-weight:bold;
+  transition:0.2s;
+}
+
+.btn:hover{opacity:0.9;}
+
+.red{background:#ff2e2e;}
+.blue{background:#5865F2;}
+.black{background:#111;}
+.green{background:#1DB954;}
+.pink{background:#E1306C;} /* Instagram */
+
+.done{
+  background:#2ecc71 !important;
+}
+
+.loading{
+  background:#f39c12 !important;
+}
+
+.progress{
+  margin-top:15px;
+  font-size:13px;
+}
+
+.bar{
+  height:8px;
+  background:#222;
+  border-radius:10px;
+  margin-top:5px;
+  overflow:hidden;
+}
+
+.fill{
+  height:100%;
+  width:0%;
+  background:#00ff99;
+  transition:0.3s;
+}
+
+.unlock{
+  margin-top:15px;
+  padding:12px;
+  text-align:center;
+  border-radius:10px;
+  background:#555;
+  cursor:not-allowed;
+}
+
+.unlock.active{
+  background:#00c853;
+  cursor:pointer;
+}
+</style>
+</head>
+
+<body>
+
+<div class="card">
+  <h2>🎁 PLUGIN VSTs VIP GRATIS (SOLO HOY)</h2>
+  <div class="sub">Completa estas acciones para desbloquear</div>
+
+  <div id="b1" class="btn red" onclick="doStep(0,'https://JKiller.openinapp.co/YTChannel')">🎥 SUSCRÍBETE EN YOUTUBE</div>
+  <div id="b2" class="btn pink" onclick="doStep(1,'https://JKiller.openinapp.co/IGChannel')">📸 SÍGUEME EN INSTAGRAM</div>
+  <div id="b3" class="btn black" onclick="doStep(2,'https://JKiller.openinapp.link/TKChannel')">🎵 SÍGUEME EN TIKTOK</div>
+  <div id="b4" class="btn blue" onclick="doStep(3,'https://JKiller.openinapp.co/FBChannel')">📘 SÍGUEME EN FACEBOOK</div>
+
+  <div class="progress">
+    Unlock progress: <span id="count">0</span>/4
+    <div class="bar"><div id="fill" class="fill"></div></div>
+  </div>
+
+  <div id="unlock" class="unlock">🔒 DESBLOQUEAR ARCHIVO</div>
+</div>
+
+<script>
+let steps = [false,false,false,false];
+
+function doStep(i, link){
+  if(steps[i]) return;
+
+  let btn = document.getElementById("b"+(i+1));
+
+  // Estado visual: verificando
+  btn.classList.add("loading");
+  btn.innerText = "⏳ Verificando...";
+  btn.style.pointerEvents = "none";
+
+  // Abrir link
+  window.open(link, '_blank');
+
+  // Espera 10 segundos
+  setTimeout(()=>{
+    steps[i] = true;
+
+    btn.classList.remove("loading");
+    btn.classList.add("done");
+    btn.innerText = "✔ Completado";
+
+    updateProgress();
+  }, 10000);
+}
+
+function updateProgress(){
+  let done = steps.filter(x=>x).length;
+  document.getElementById("count").innerText = done;
+
+  let percent = (done/4)*100;
+  document.getElementById("fill").style.width = percent + "%";
+
+  if(done === 4){
+    let unlock = document.getElementById("unlock");
+    unlock.classList.add("active");
+    unlock.innerText = "🔓 Desbloquear Archivo";
+
+    unlock.onclick = () => {
+      window.location.href = "https://www.mediafire.com/file/ha67ciwgh5ynl13/Emulador_VSTs_VIP.rar/file";
+    }
+  }
+}
+</script>
+
+</body>
+</html>
